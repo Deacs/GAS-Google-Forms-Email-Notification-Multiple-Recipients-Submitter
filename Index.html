@@ -1,0 +1,67 @@
+<div>
+ <div id="formDiv">
+             <form name="myForm" id="myForm">
+                 <label for="toEmailTB">TO: Example add1@mail.com,add2@mail.com
+                 <br>
+                 <input type="text"  name="toEmailTB" value="<?=getProperty('EMAIL_ADDRESS')?>" id="toEmailTB"/></label>
+                 <br>
+                 <label for="ccEmailTB">CC: Example add1@mail.com,add2@mail.com
+                 <br>
+                 <input type="text" value="<?=getProperty('CC_ADDRESS')?>" name="ccEmailTB" id="ccEmailTB"/></label>
+                 <br>
+                 <label for="subjectTB">Enter Subject
+                 <br>
+                 <input type="text" value="<?=getProperty('EMAIL_SUBJECT')?>" name="subjectTB" id="subjectTB"/></label>
+                 <br>
+                 <label for="messageTA">Enter Message
+                 <br>
+                 <textarea name="messageTA" id="messageTA" rows="10" cols="50"><?=getProperty('EMAIL_MESSAGE')?></textarea></label>
+                 <br>
+                 <input type="checkbox" name="addSubmitterCB" value="true" <?if(getProperty('ADD_SUBMITTER') == 'true'){ ?>checked<?}?>/> Check to send a response to form submitter.
+                 <br>
+                 <input type="checkbox" name="secHeaderCB" value="true" <?if(getProperty('SECTION_HEADER') == 'true'){ ?>checked<?}?>/> Check to include section headers in responses. 
+                 <br>
+                 <input type="checkbox" name="includeEmptyCB" value="true" <?if(getProperty('INCLUDE_EMPTY') == 'true'){ ?>checked<?}?>/> Check to include empty responses.
+                 <br>
+                 <input type="checkbox" name="responLinkCB" value="true" <?if(getProperty('RESPONSE_LINK') == 'true'){ ?>checked<?}?>/> Check to include a link to edit response in email.
+                 <br>
+                 <input type="button" id="submit" value="submit" onclick = "google.script.run.withSuccessHandler(sucSubmitted).processForm(document.getElementById('myForm'))" />
+             </form>
+         </div>
+</div>
+
+<style>
+#myForm{
+ margin:0 auto; 
+ }
+input, textarea{
+    margin-top:5px;
+}
+label{
+    display: block;
+    margin-top:5px;
+}
+input[type="text"]{
+    width: 400px;
+}
+
+</style>
+
+
+<script>
+ function sucSubmitted() {
+ //get formDiv
+  var div = document.getElementById('formDiv');
+  var closeButton = '<br> <input type="button" value="Close"  onclick="google.script.host.close()" />';
+  //Add message and button that redirects to main form
+  div.innerHTML = "Submitted";
+  div.innerHTML += closeButton;    
+  }
+  
+  function getValues(){
+     var value1 = google.script.run.testReturn(); 
+     return value1;
+  }
+  
+</script>
+
